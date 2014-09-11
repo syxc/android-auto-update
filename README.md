@@ -11,50 +11,52 @@ Android App自动更新（非Service）。
 
 public class MainActivity extends Activity {
 
-	AppUpdate appUpdate;
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		
-		appUpdate = AppUpdateService.getAppUpdate(this);
-		
-		View check = findViewById(R.id.check);
-		check.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// 检查最新版本，并弹出窗口
-				appUpdate.checkLatestVersion("http://api.ilovedeals.sg/app_release/latest?app_type=android-mobile", 
-						new SimpleJSONParser());
-			}
-		});
-		
-		View download = findViewById(R.id.download);
-		download.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// 在执行检查操作后，用户取消下载，可以通过此方法，下载最新版本。
-				appUpdate.downloadAndInstall();
-			}
-		});
-	}
-	
-	@Override
-	protected void onResume(){
-		super.onResume();
-		
-		// ******** 
-		appUpdate.callOnResume();
-	}
-	
-	@Override
-	protected void onPause(){
-		super.onPause();
-		
-		// ******** 
-		appUpdate.callOnPause();
-	}
+    AppUpdate appUpdate;
+
+    final static String UPDATE_URL = "http://api.buybuychat.com/update/v1/latest?channel=stable&platform=android";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        appUpdate = AppUpdateService.getAppUpdate(this);
+
+        appUpdate.checkLatestVersion(UPDATE_URL, new SimpleJsonParser());
+        appUpdate.setUpdateDirectly(true); // 显示指明：不需要提示已是最新版本
+
+        View check = findViewById(R.id.check);
+        check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 检查最新版本，并弹出窗口
+                appUpdate.checkLatestVersion(UPDATE_URL,
+                        new SimpleJsonParser());
+            }
+        });
+
+        View download = findViewById(R.id.download);
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 无须提示，直接升级
+                appUpdate.checkAndUpdateDirectly(UPDATE_URL,
+                        new SimpleJsonParser());
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        appUpdate.callOnResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        appUpdate.callOnPause();
+    }
 
 }
 

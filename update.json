@@ -1,0 +1,13 @@
+{
+    "code": 0,
+    "msg": {
+        "id": 0,
+        "vername": "1.0.5",
+        "vercode": 20140906,
+        "note": "1.0.5发布",
+        "time": "2014-09-06 18:00:00",
+        "app": "appname",
+        "url": "http://www.xxxx.com/android/stable/1.0.5/appname.apk",
+        "level": 0
+    }
+}

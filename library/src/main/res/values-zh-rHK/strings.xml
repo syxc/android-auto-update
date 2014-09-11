@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="download_failure">下載最新版本失敗!</string>
+    <string name="is_latest_version_label">您的應用已是最新版本</string>
+    <string name="apk_file_not_exists">Apk 文件不存在 !</string>
+    <string name="latest_version_title">最新版本(%1$s)</string>
+    <string name="latest_version_time">版本發佈時間：%1$s</string>
+    <string name="network_not_activated">無法連接網絡，請您檢查後重試....</string>
+    <string name="update_latest_version_title">最新版本可用(%1$s), 更新中&#8230;</string>
+    <string name="later_on_wifi">稍候在Wifi下更新</string>
+    <string name="later_update_tip">更新中&#8230; (您在非Wifi環境下提交了此更新任務)</string>
+    <string name="update">更新</string>
+    <string name="ignore">忽略</string>
+</resources>
