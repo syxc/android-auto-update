@@ -87,9 +87,9 @@ public interface AppUpdate {
     void callOnPause();
 
     /**
-     * 是否自动更新
+     * 显示指定，是否需要提示已是最新版本
      *
-     * @param isDirectly (true：自动 false：手动)
+     * @param flag (true：显示 false：不显示)
      */
-    void setUpdateDirectly(boolean isDirectly);
+    void showLatestVersionTip(boolean flag);
 }

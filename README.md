@@ -9,7 +9,7 @@ Android App自动更新（非Service）。
 
 ``` java
 
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
 
     AppUpdate appUpdate;
 
@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
         appUpdate = AppUpdateService.getAppUpdate(this);
 
         appUpdate.checkLatestVersion(UPDATE_URL, new SimpleJsonParser());
-        appUpdate.setUpdateDirectly(true); // 显示指明：不需要提示已是最新版本
+        appUpdate.showLatestVersionTip(false); // 显示指明：不需要提示已是最新版本
 
         View check = findViewById(R.id.check);
         check.setOnClickListener(new View.OnClickListener() {
@@ -32,6 +32,7 @@ public class MainActivity extends Activity {
                 // 检查最新版本，并弹出窗口
                 appUpdate.checkLatestVersion(UPDATE_URL,
                         new SimpleJsonParser());
+                appUpdate.showLatestVersionTip(true);
             }
         });
 
@@ -42,6 +43,7 @@ public class MainActivity extends Activity {
                 // 无须提示，直接升级
                 appUpdate.checkAndUpdateDirectly(UPDATE_URL,
                         new SimpleJsonParser());
+                appUpdate.showLatestVersionTip(false);
             }
         });
     }
@@ -59,6 +61,7 @@ public class MainActivity extends Activity {
     }
 
 }
+
 
 ```
 

@@ -37,6 +37,7 @@ public class AppUpdateService {
     private boolean updateDirectly = false;
     private boolean _3thPartyDownloader = false;
     private boolean isRegistered = false;
+    private boolean latestVersionTip = false;
 
     private long downloadTaskId = -12306;
     private static AutoUpgradeDelegate updateDelegate;
@@ -183,7 +184,7 @@ public class AppUpdateService {
             if (customShowingDelegate != null) {
                 customShowingDelegate.showIsLatestVersion();
             } else {
-                if (!updateDirectly) {
+                if (latestVersionTip) {
                     showShortToast(context, R.string.is_latest_version_label);
                 }
             }
@@ -206,8 +207,8 @@ public class AppUpdateService {
         }
 
         @Override
-        public void setUpdateDirectly(boolean isDirectly) {
-            updateDirectly = isDirectly;
+        public void showLatestVersionTip(boolean flag) {
+            latestVersionTip = flag;
         }
 
         @Override
