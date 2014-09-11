@@ -13,7 +13,7 @@ public class MainActivity extends Activity {
 
     AppUpdate appUpdate;
 
-    final static String UPDATE_URL = "http://api.buybuychat.com/update/v1/latest?channel=stable&platform=android";
+    final static String UPDATE_URL = "https://raw.githubusercontent.com/syxc/android-auto-update/master/update.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
