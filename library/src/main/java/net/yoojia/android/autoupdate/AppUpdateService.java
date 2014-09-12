@@ -84,11 +84,9 @@ public class AppUpdateService {
             if (isNetworkActive()) {
                 VerifyTask task = new VerifyTask(context, parser, this);
                 task.execute(checkUrl);
-            } else {
-                if (!updateDirectly) {
-                    // 手动更新时，才提示用户网络没有开启
-                    showShortToast(context, R.string.network_not_activated);
-                }
+            } else if (!isUpdateDirectly && latestVersionTip) {
+                // 手动更新时，才提示用户网络没有开启
+                showShortToast(context, R.string.network_not_activated);
             }
         }
 

@@ -22,17 +22,17 @@ public class MainActivity extends ActionBarActivity {
 
         appUpdate = AppUpdateService.getAppUpdate(this);
 
-        appUpdate.checkLatestVersion(UPDATE_URL, new SimpleJsonParser());
         appUpdate.showLatestVersionTip(false); // 显示指明：不需要提示已是最新版本
+        appUpdate.checkLatestVersion(UPDATE_URL, new SimpleJsonParser());
 
         View check = findViewById(R.id.check);
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 检查最新版本，并弹出窗口
+                appUpdate.showLatestVersionTip(true);
                 appUpdate.checkLatestVersion(UPDATE_URL,
                         new SimpleJsonParser());
-                appUpdate.showLatestVersionTip(true);
             }
         });
 
@@ -41,9 +41,9 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 // 无须提示，直接升级
+                appUpdate.showLatestVersionTip(false);
                 appUpdate.checkAndUpdateDirectly(UPDATE_URL,
                         new SimpleJsonParser());
-                appUpdate.showLatestVersionTip(false);
             }
         });
     }
@@ -59,7 +59,6 @@ public class MainActivity extends ActionBarActivity {
         super.onPause();
         appUpdate.callOnPause();
     }
-
 }
 
 
