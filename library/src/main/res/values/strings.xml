@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">AutoUpgradeService</string>
-
     <string name="download_failure">Download latest version failure !</string>
     <string name="apk_file_not_exists">Apk file not exists !</string>
     <string name="is_latest_version_label">Your app is the latest version</string>

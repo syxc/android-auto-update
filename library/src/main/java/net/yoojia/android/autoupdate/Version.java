@@ -41,16 +41,21 @@ public class Version {
     public String releaseTime;
 
     /**
+     * APK的MD5值
+     */
+    public String md5;
+
+    /**
      * 更新级别
      */
     public int level;
 
-    public Version(long id, int code, String name, String feature, String targetUrl, int level) {
-        this(id, code, name, null, feature, targetUrl, null, level);
+    public Version(long id, int code, String name, String feature, String targetUrl, String md5, int level) {
+        this(id, code, name, null, feature, targetUrl, null, md5, level);
     }
 
     public Version(long id, int code, String name, String app, String feature,
-                   String targetUrl, String releaseTime, int level) {
+                   String targetUrl, String releaseTime, String md5, int level) {
         this.id = id;
         this.code = code;
         this.name = name;
@@ -58,6 +63,7 @@ public class Version {
         this.feature = feature;
         this.targetUrl = targetUrl;
         this.releaseTime = releaseTime;
+        this.md5 = md5;
         this.level = level;
     }
 
@@ -71,6 +77,7 @@ public class Version {
                 .append("Time: ").append(releaseTime).append("\n")
                 .append("Feature: ").append(feature).append("\n")
                 .append("TargetUrl: ").append(targetUrl).append("\n")
+                .append("MD5: ").append(md5).append("\n")
                 .append("Level: ").append(level);
         return builder.toString();
     }

@@ -17,6 +17,7 @@ public class VersionPersistent {
     public static final String VERSION_URL = "url";
     public static final String VERSION_TIME = "time";
     public static final String VERSION_APP = "app";
+    public static final String VERSION_MD5 = "md5";
     public static final String VERSION_LEVEL = "level";
 
     private SharedPreferences shared;
@@ -36,6 +37,7 @@ public class VersionPersistent {
         editor.putString(VERSION_URL, version.targetUrl);
         editor.putString(VERSION_TIME, version.releaseTime);
         editor.putString(VERSION_APP, version.app);
+        editor.putString(VERSION_MD5, version.md5);
         editor.putInt(VERSION_LEVEL, version.level);
         editor.commit();
     }
@@ -55,9 +57,10 @@ public class VersionPersistent {
             String url = shared.getString(VERSION_URL, null);
             String time = shared.getString(VERSION_TIME, null);
             String app = shared.getString(VERSION_APP, null);
+            String md5 = shared.getString(VERSION_MD5, null);
             int level = shared.getInt(VERSION_LEVEL, 0);
             if (name == null || url == null) return null;
-            return new Version(id, code, name, app, feature, url, time, level);
+            return new Version(id, code, name, app, feature, url, time, md5, level);
         }
         return null;
     }

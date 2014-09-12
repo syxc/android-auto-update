@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.lurencun.service.autoupdate.R;
@@ -21,11 +22,9 @@ import net.yoojia.android.autoupdate.internal.ResponseCallback;
 import net.yoojia.android.autoupdate.internal.VerifyTask;
 import net.yoojia.android.autoupdate.internal.VersionDialogListener;
 import net.yoojia.android.autoupdate.internal.VersionPersistent;
+import net.yoojia.android.autoupdate.utils.MD5;
 
 import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class AppUpdateService {
 
@@ -110,11 +109,15 @@ public class AppUpdateService {
             String apkName = extractName(version.targetUrl);
             String dirPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
             dirPath = dirPath.endsWith(File.separator) ? dirPath : dirPath + File.separator;
-            String targetApkPath = dirPath + getDateFormat() + apkName; // FIXME: 有时存在保留的是旧文件的问题
+            String targetApkPath = dirPath + apkName;
             File targetApkFile = new File(targetApkPath);
             if (targetApkFile.exists()) {
-                installAPKFile(targetApkFile);
-                return;
+                if (MD5.checkMD5(version.md5, targetApkFile)) {
+                    installAPKFile(targetApkFile);
+                    return;
+                }
+                boolean deleted = targetApkFile.delete();
+                Log.i("AppUpdateService", "Old update file deleted: " + deleted);
             }
 
             // 第三方下载
@@ -142,6 +145,7 @@ public class AppUpdateService {
             task.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE
                     | DownloadManager.Request.NETWORK_WIFI);
             task.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, apkName);
+            task.setMimeType("application/vnd.android.package-archive");
             downloadTaskId = downloader.enqueue(task);
         }
 
@@ -314,11 +318,6 @@ public class AppUpdateService {
         this.context = context;
         downloaderReceiver = new DownloadReceiver();
         networkReceiver = new NetworkStateReceiver();
-    }
-
-    private String getDateFormat() {
-        final DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
-        return format.format(new Date());
     }
 
     private void showShortToast(Context context, int resId) {
