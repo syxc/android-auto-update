@@ -134,6 +134,7 @@ public class AppUpdateService {
             Cursor cur = downloader.query(query);
             // 下载任务已经存在的话
             if (cur.moveToNext()) {
+                cur.close();
                 return;
             }
             cur.close();
